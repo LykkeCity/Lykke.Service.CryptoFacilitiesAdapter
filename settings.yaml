@@ -1,0 +1,18 @@
+СryptoFacilitiesAdapterService:
+    Db:
+        LogsConnString:
+            settings-key: СryptoFacilitiesAdapterService-LogsConnString
+            types:
+              - AzureTableStorage
+SlackNotifications:
+    AzureQueue:
+        ConnectionString:
+            settings-key: SlackNotificationsConnString
+            types:
+                - AzureTableStorage
+        QueueName:
+            settings-key: SlackQueueName
+MonitoringServiceClient:
+    MonitoringServiceUrl:
+        settings-key: MonitoringServiceUrl
+
