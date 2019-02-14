@@ -1,70 +1,19 @@
-﻿using System;
 using System.Collections.Generic;
-using Common;
+using Lykke.СryptoFacilities.Models.Common;
 using Newtonsoft.Json;
 
-namespace Lykke.СryptoFacilities
+namespace Lykke.СryptoFacilities.Models.Response
 {
-    public class BaseResponce
+    public class GetAccountInfoResponse : BaseResponse
     {
-        public string Result { get; set; }
-        public DateTime ServerTime { get; set; }
-        public string Error { get; set; }
-
-        public override string ToString()
-        {
-            return this.ToJson();
-        }
+        /// <summary>
+        /// An object containing structures with account-related information for all margin and cash accounts.
+        /// </summary>
+        [JsonProperty("accounts")]
+        public AccountsInfo Accounts { set; get; }
     }
-
-    public class TickerResponce : BaseResponce
-    {
-        public List<TickerInfo> Tickers { get; set; }
-    }
-
-    public class TickerInfo
-    {
-        public string Tag { get; set; }
-        public string Pair { get; set; }
-        public string Symbol { get; set; }
-        public decimal MarkPrice { get; set; }
-        public decimal Bid { get; set; }
-        public decimal BidSize { get; set; }
-        public decimal Ask { get; set; }
-        public decimal AskSize { get; set; }
-        public decimal Vol24h { get; set; }
-        public decimal OpenInterest { get; set; }
-        public decimal Open24h { get; set; }
-        public decimal Last { get; set; }
-        public DateTime LastTime { get; set; }
-        public decimal LastSize { get; set; }
-        public bool Suspended { get; set; }
-        public decimal FundingRate { get; set; }
-        public decimal FundingRatePrediction { get; set; }
-    }
-
-    public class OpenPositionsResponce : BaseResponce
-    {
-        public List<OpenPosition> OpenPositions { get; set; }
-    }
-
-    public class OpenPosition
-    {
-        public SideType Side { get; set; }
-        public string Symbol { get; set; }
-        public decimal Price { get; set; }
-        public DateTime FillTime { get; set; }
-        public decimal Size { get; set; }
-    }
-
-    public enum SideType
-    {
-        Unknown,
-        Long,
-        Short
-    }
-
-    public class AccountInfoResponce : BaseResponce
+    
+    public class AccountsInfo
     {
         [JsonProperty("fi_xbtusd")]
         public Account BTCUSD { get; set; }
@@ -89,10 +38,34 @@ namespace Lykke.СryptoFacilities
 
         public class Account
         {
+            /// <summary>
+            /// The type of the account.
+            /// </summary>
+            [JsonProperty("type")]
             public AccountType Type { get; set; }
+            
+            /// <summary>
+            /// An object containing auxiliary account information. Returned only for margin accounts.
+            /// </summary>
+            [JsonProperty("auxiliary")]
             public AuxiliaryInfo Auxiliary { get; set; }
+            
+            /// <summary>
+            /// An object containing the account’s margin requirements. Returned only for margin accounts.
+            /// </summary>
+            [JsonProperty("marginRequirements")]
             public MarginRequirements MarginRequirements { get; set; }
+            
+            /// <summary>
+            /// An object containing the account’s margin trigger. Returned only for margin accounts.
+            /// </summary>
+            [JsonProperty("triggerEstimates")]
             public TriggerEstimates TriggerEstimates { get; set; }
+            
+            /// <summary>
+            /// An object containing account balances.
+            /// </summary>
+            [JsonProperty("balances")]
             public Dictionary<string, decimal> Balances { get; set; }
         }
 
@@ -175,12 +148,6 @@ namespace Lykke.СryptoFacilities
             /// </summary>
             [JsonProperty("tt")]
             public double PriceTerminationThreshold { get; set; }
-        }
-
-        public enum AccountType
-        {
-            CashAccount,
-            MarginAccount
         }
     }
 }
