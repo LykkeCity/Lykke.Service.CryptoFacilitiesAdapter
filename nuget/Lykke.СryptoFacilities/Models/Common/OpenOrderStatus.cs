@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -6,19 +7,17 @@ namespace Lykke.СryptoFacilities.Models.Common
     /// <summary>
     /// The status of the open order
     /// </summary>
-    [JsonConverter(typeof(StringEnumConverter))]
-    public enum OpenOrderStatus
+    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
+    public class OpenOrderStatus
     {
         /// <summary>
         /// The entire size of the order is unfilled.
         /// </summary>
-        [JsonProperty("untouched")]
-        Untouched,
+        public const string Untouched = "untouched";
         
         /// <summary>
         /// The size of the order is partially but not entirely filled.
         /// </summary>
-        [JsonProperty("partiallyFilled")]
-        PartiallyFilled
+        public const string PartiallyFilled = "partiallyFilled";
     }
 }

@@ -22,7 +22,7 @@ namespace Lykke.СryptoFacilities.Models.Response
         /// A structure containing information on the cancellation request.
         /// </summary>
         [JsonProperty("cancelStatus")]
-        public CancelAllOrdersStatus Status { set; get; }
+        public string Status { set; get; }
         
         /// <summary>
         /// The symbol of the futures or the margin account to cancel or "all".

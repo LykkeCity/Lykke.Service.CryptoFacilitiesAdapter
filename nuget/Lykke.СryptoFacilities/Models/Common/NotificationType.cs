@@ -6,43 +6,18 @@ namespace Lykke.СryptoFacilities.Models.Common
     /// <summary>
     /// The notification type.
     /// </summary>
-    [JsonConverter(typeof(StringEnumConverter))]
-    public enum NotificationType
+    public class NotificationType
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("market")]
-        Market,
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("general")]
-        general,
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("new_feature")]
-        NewFeature,
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("bug_fix")]
-        BugFix,
-        
-        /// <summary>
-        /// Downtime will occur at EffectiveTime if Priority=="High"
-        /// </summary>
-        [JsonProperty("maintenance")]
-        Maintenance,
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty("settlement")]
-        Settlement
+        public const string Market = "market";
+
+        public const string General = "general";
+
+        public const string NewFeature = "new_feature";
+
+        public const string BugFix = "bug_fix";
+
+        public const string Maintenance = "maintenance";
+
+        public const string Settlement = "settlement";
     }
 }

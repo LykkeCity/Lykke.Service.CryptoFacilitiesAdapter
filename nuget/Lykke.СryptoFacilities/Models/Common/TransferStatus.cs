@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -6,31 +7,27 @@ namespace Lykke.СryptoFacilities.Models.Common
     /// <summary>
     /// The status of the transfer request.
     /// </summary>
-    [JsonConverter(typeof(StringEnumConverter))]
-    public enum TransferStatus
+    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
+    public class TransferStatus
     {
         /// <summary>
         /// The withdrawal request was accepted and will be processed soon.
         /// </summary>
-        [JsonProperty("accepted")]
-        Accepted,
+        public const string Accepted = "accepted";
         
         /// <summary>
         /// The withdrawal request was not accepted because available funds are insufficient.
         /// </summary>
-        [JsonProperty("insufficientAvailableFunds")]
-        NotEnoughFunds,
-        
+        public const string NotEnoughFunds = "insufficientAvailableFunds";
+
         /// <summary>
         /// The withdrawal request is pending.
         /// </summary>
-        [JsonProperty("pending")]
-        Pending,
-        
+        public const string Pending = "pending";
+
         /// <summary>
         /// The withdrawal request was processed.
         /// </summary>
-        [JsonProperty("processed")]
-        Processed
+        public const string Processed = "processed";
     }
 }

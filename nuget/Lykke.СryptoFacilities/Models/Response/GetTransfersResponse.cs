@@ -33,7 +33,7 @@ namespace Lykke.СryptoFacilities.Models.Response
         /// The status of the transfer request.
         /// </summary>
         [JsonProperty("status")]
-        public TransferStatus Status { set; get; }
+        public string Status { set; get; }
         
         /// <summary>
         /// The unique identifier of the transfer.
@@ -58,7 +58,7 @@ namespace Lykke.СryptoFacilities.Models.Response
         /// The type of the transfer, either deposit or withdrawal.
         /// </summary>
         [JsonProperty("transferType")]
-        public TransferType Type { set; get; }
+        public string Type { set; get; }
         
         /// <summary>
         /// The digital asset amount that was transferred. Positive for deposits and negative for withdrawals.

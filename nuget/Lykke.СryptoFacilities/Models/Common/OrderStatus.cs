@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -6,85 +7,72 @@ namespace Lykke.СryptoFacilities.Models.Common
     /// <summary>
     /// The status of the order
     /// </summary>
-    [JsonConverter(typeof(StringEnumConverter))]
-    public enum OrderStatus
+    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
+    public class OrderStatus
     {
         /// <summary>
         /// The order was placed successfully.
         /// </summary>
-        [JsonProperty("placed")]
-        Placed,
-        
+        public const string Placed = "placed";
+
         /// <summary>
         /// The post-order will be attempted. If it is successful it will be shown in open orders.
         /// </summary>
-        [JsonProperty("attempted")]
-        Attempted,
-        
+        public const string Attempted = "attempted";
+
         /// <summary>
         /// The order was not placed because orderType is invalid.
         /// </summary>
-        [JsonProperty("invalidOrderType")]
-        InvalidOrderType,
-        
+        public const string InvalidOrderType = "invalidOrderType";
+
         /// <summary>
         /// The order was not placed because side is invalid.
         /// </summary>
-        [JsonProperty("invalidSide")]
-        InvalidSide,
-        
+        public const string InvalidSide = "invalidSide";
+
         /// <summary>
         /// The order was not placed because size is invalid.
         /// </summary>
-        [JsonProperty("invalidSize")]
-        InvalidSize,
-        
+        public const string InvalidSize = "invalidSize";
+
         /// <summary>
         /// The order was not placed because limitPrice and/or stopPrice are invalid.
         /// </summary>
-        [JsonProperty("invalidPrice")]
-        InvalidPrice,
-        
+        public const string InvalidPrice = "invalidPrice";
+
         /// <summary>
         /// The order was not placed because available funds are insufficient.
         /// </summary>
-        [JsonProperty("insufficientAvailableFunds")]
-        InsufficientAvailableFunds,
-        
+        public const string InsufficientAvailableFunds = "insufficientAvailableFunds";
+
         /// <summary>
         /// The order was not placed because it would be filled against an existing order belonging to the same account.
         /// </summary>
-        [JsonProperty("selfFill")]
-        SelfFill,
-        
+        public const string SelfFill = "selfFill";
+
         /// <summary>
         /// The order was not placed because the number of small open orders would exceed the permissible limit.
         /// </summary>
-        [JsonProperty("tooManySmallOrders")]
-        TooManySmallOrders,
-        
+        public const string TooManySmallOrders = "tooManySmallOrders";
+
         /// <summary>
         /// The order was not placed because the market is suspended.
         /// </summary>
-        [JsonProperty("marketSuspended")]
-        MarketSuspended,
+        public const string MarketSuspended = "marketSuspended";
 
         /// <summary>
         /// The order was not placed because the market is inactive.
         /// </summary>
-        [JsonProperty("marketInactive")]
-        MarketInactive,
+        public const string MarketInactive = "marketInactive";
 
         /// <summary>
         /// The specified client id already exist.
         /// </summary>
-        [JsonProperty("clientOrderIdAlreadyExist")]
-        ClientOrderIdAlreadyExist,
+        public const string ClientOrderIdAlreadyExist = "clientOrderIdAlreadyExist";
 
         /// <summary>
         /// The client id is longer than the permissible limit.
         /// </summary>
-        [JsonProperty("clientOrderIdTooLong")]
-        ClientOrderIdTooLong
+        public const string ClientOrderIdTooLong = "clientOrderIdTooLong";
     }
 }

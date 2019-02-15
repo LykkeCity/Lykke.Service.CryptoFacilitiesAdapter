@@ -6,16 +6,12 @@ namespace Lykke.СryptoFacilities.Models.Common
     /// <summary>
     /// The notification priority.
     /// </summary>
-    [JsonConverter(typeof(StringEnumConverter))]
-    public enum NotificationPriority
+    public class NotificationPriority
     {
-        [JsonProperty("low")]
-        Low,
-        
-        [JsonProperty("medium")]
-        Medium,
-        
-        [JsonProperty("high")]
-        High
+        public const string Low = "low";
+
+        public const string Medium = "medium";
+
+        public const string High = "high";
     }
 }

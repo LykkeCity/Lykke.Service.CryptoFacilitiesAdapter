@@ -21,7 +21,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Lykke.СryptoFacilities
 {
-    public class СryptoFacilitiesClient
+    public class СryptoFacilitiesClient : ICryptoFacilitiesClient
     {
         private readonly string _apiPath;
         private readonly string _apiPublicKey;
@@ -40,8 +40,6 @@ namespace Lykke.СryptoFacilities
             
             _nonce = 0;
         }
-
-        public СryptoFacilitiesClient(String apiPath, Boolean checkCertificate) : this(apiPath, null, null, checkCertificate) { }
 
         // Sends an HTTP request
         private async Task<T> MakeRequest<T>(HttpMethod requestMethod, string endpoint, BaseRequestUrl urlData = default(BaseRequestUrl), BaseRequestBody bodyData = default(BaseRequestBody)) where T : BaseResponse
@@ -112,7 +110,7 @@ namespace Lykke.СryptoFacilities
 
 
         #region public endpoints
-        // Returns all instruments with specifications
+        
         public async Task<Instrument[]> GetInstrumentsAsync()
         {
             var resp = await MakeRequest<InstrumentsResponse>(HttpMethod.Get, "/api/v3/instruments");
@@ -120,15 +118,13 @@ namespace Lykke.СryptoFacilities
             return resp.Instruments;
         }
         
-        // Returns market data for all instruments
         public async Task<TickerInfo[]> GetTickersAsync()
         {
             var resp = await MakeRequest<TickerResponse>(HttpMethod.Get, "/api/v3/tickers");
 
             return resp.Tickers;
         }
-
-        // Returns the entire order book for a futures
+        
         public async Task<OrderBook> GetOrderBookAsync(string symbol)
         {
             var urlData = new OrderBookRequestUrl
@@ -140,8 +136,7 @@ namespace Lykke.СryptoFacilities
 
             return resp.OrderBook;
         }
-
-        // Returns historical data for futures and indices
+        
         public async Task<HistoryRecord[]> GetHistoryAsync(string symbol, DateTime? lastTime = default(DateTime?))
         {
             var postUrl = new HistoryRequestUrl

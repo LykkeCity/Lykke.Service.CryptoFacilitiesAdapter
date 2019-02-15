@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -6,37 +7,32 @@ namespace Lykke.СryptoFacilities.Models.Common
     /// <summary>
     /// The classification of the fill.
     /// </summary>
-    [JsonConverter(typeof(StringEnumConverter))]
-    public enum FillType
+    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
+    public static class FillType
     {
         /// <summary>
         /// User has a limit order that gets filled.
         /// </summary>
-        [JsonProperty("maker")]
-        Maker,
-        
+        public const string Maker = "maker";
+
         /// <summary>
         /// User makes an execution that crosses the spread.
         /// </summary>
-        [JsonProperty("taker")]
-        Taker,
+        public const string Taker = "taker";
         
         /// <summary>
         /// Execution is result of a liquidation.
         /// </summary>
-        [JsonProperty("liquidation")]
-        Liquidation,
-        
+        public const string Liquidation = "liquidation";
+
         /// <summary>
         /// Execution is a result of a counterparty receiving an Assignment in PAS.
         /// </summary>
-        [JsonProperty("assignee")]
-        Assignee,
-        
+        public const string Assignee = "assignee";
+
         /// <summary>
         /// Execution is a result of user assigning their position due to failed liquidation.
         /// </summary>
-        [JsonProperty("assignor")]
-        Assignor
+        public const string Assignor = "assignor";
     }
 }

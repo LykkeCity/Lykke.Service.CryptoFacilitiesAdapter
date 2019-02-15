@@ -5,12 +5,10 @@ namespace Lykke.СryptoFacilities.Models.Common
     /// <summary>
     /// The type of the transfer
     /// </summary>
-    public enum TransferType
+    public class TransferType
     {
-        [JsonProperty("deposit")]
-        Deposit,
-        
-        [JsonProperty("withdrawal")]
-        Withdrawal
+        public const string Deposit = "deposit";
+
+        public const string Withdrawal = "withdrawal";
     }
 }

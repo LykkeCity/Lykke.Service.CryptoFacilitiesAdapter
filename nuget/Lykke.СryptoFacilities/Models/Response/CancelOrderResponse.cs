@@ -28,7 +28,7 @@ namespace Lykke.СryptoFacilities.Models.Response
         /// The status of the order cancellation.
         /// </summary>
         [JsonProperty("status")]
-        public CancelOrderStatus Status { set; get; }
+        public string Status { set; get; }
 
         /// <summary>
         /// The date and time the order was received.

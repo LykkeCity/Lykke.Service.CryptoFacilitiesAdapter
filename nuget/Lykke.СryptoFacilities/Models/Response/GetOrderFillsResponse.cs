@@ -67,6 +67,6 @@ namespace Lykke.СryptoFacilities.Models.Response
         /// The classification of the fill.
         /// </summary>
         [JsonProperty("fillType")]
-        public FillType Type { set; get; }
+        public string Type { set; get; }
     }
 }

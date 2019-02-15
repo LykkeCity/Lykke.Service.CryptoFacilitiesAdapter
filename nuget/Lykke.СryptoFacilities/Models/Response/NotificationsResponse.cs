@@ -19,19 +19,19 @@ namespace Lykke.СryptoFacilities.Models.Response
         /// The notification type.
         /// </summary>
         [JsonProperty("notifications")]
-        public NotificationType Type { set; get; }
+        public string Type { set; get; }
         
         /// <summary>
         /// The notification priority
         /// </summary>
         [JsonProperty("priority")]
-        public NotificationPriority Priority { set; get; }
+        public string Priority { set; get; }
         
         /// <summary>
         /// The notification note. A short description about the specific  notification.
         /// </summary>
         [JsonProperty("note")]
-        public NotificationPriority Note { set; get; }
+        public string Note { set; get; }
         
         /// <summary>
         /// The time that notification is taking effect.

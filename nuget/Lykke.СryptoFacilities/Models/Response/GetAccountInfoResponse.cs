@@ -42,7 +42,7 @@ namespace Lykke.СryptoFacilities.Models.Response
             /// The type of the account.
             /// </summary>
             [JsonProperty("type")]
-            public AccountType Type { get; set; }
+            public string Type { get; set; }
             
             /// <summary>
             /// An object containing auxiliary account information. Returned only for margin accounts.

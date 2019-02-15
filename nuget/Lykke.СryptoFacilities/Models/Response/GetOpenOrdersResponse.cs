@@ -25,7 +25,7 @@ namespace Lykke.СryptoFacilities.Models.Response
         /// A structure containing information on the cancellation request.
         /// </summary>
         [JsonProperty("status")]
-        public OpenOrderStatus Status { set; get; }
+        public string Status { set; get; }
         
         /// <summary>
         /// The unique identifier of the order.

@@ -34,7 +34,7 @@ namespace Lykke.СryptoFacilities.Models.Response
         /// The status of the order.
         /// </summary>
         [JsonProperty("status")]
-        public OrderStatus Status { set; get; }
+        public string Status { set; get; }
 
         /// <summary>
         /// The date and time the order was received.
