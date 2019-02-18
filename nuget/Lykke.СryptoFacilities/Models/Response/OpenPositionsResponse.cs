@@ -23,7 +23,7 @@ namespace Lykke.СryptoFacilities.Models.Response
         /// The direction of the position, either long for a long position or short for a short position.
         /// </summary>
         [JsonProperty("side")]
-        public Side Side { get; set; }
+        public PositionSide Side { get; set; }
         
         /// <summary>
         /// The symbol of the Futures.

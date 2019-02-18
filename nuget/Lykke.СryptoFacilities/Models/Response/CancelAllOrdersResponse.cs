@@ -21,7 +21,7 @@ namespace Lykke.СryptoFacilities.Models.Response
         /// <summary>
         /// A structure containing information on the cancellation request.
         /// </summary>
-        [JsonProperty("cancelStatus")]
+        [JsonProperty("status")]
         public string Status { set; get; }
         
         /// <summary>

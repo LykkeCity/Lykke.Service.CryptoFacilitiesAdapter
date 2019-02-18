@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using Common;
 using Common.Log;
 using Lykke.Common.Log;
@@ -21,7 +22,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Lykke.СryptoFacilities
 {
-    public class СryptoFacilitiesClient : ICryptoFacilitiesClient
+    public class СryptoFacilitiesClient : IСryptoFacilitiesClient
     {
         private readonly string _apiPath;
         private readonly string _apiPublicKey;
@@ -29,9 +30,9 @@ namespace Lykke.СryptoFacilities
         private readonly bool _checkCertificate;
         private int _nonce;
 
-        private ILog _log;
+        private readonly ILog _log;
 
-        public СryptoFacilitiesClient(string apiPath, string apiPublicKey, string apiPrivateKey, bool checkCertificate)
+        public СryptoFacilitiesClient(string apiPath, string apiPublicKey, string apiPrivateKey, bool checkCertificate, ILogFactory logFactory)
         {
             _apiPath = apiPath;
             _apiPublicKey = apiPublicKey;
@@ -39,77 +40,11 @@ namespace Lykke.СryptoFacilities
             _checkCertificate = checkCertificate;
             
             _nonce = 0;
+
+            _log = logFactory.CreateLog(this);
         }
-
-        // Sends an HTTP request
-        private async Task<T> MakeRequest<T>(HttpMethod requestMethod, string endpoint, BaseRequestUrl urlData = default(BaseRequestUrl), BaseRequestBody bodyData = default(BaseRequestBody)) where T : BaseResponse
-        {
-            if (urlData == default(BaseRequestUrl))
-                urlData = BaseRequestUrl.Empty();
-            
-            if(bodyData == default(BaseRequestBody))
-                bodyData = BaseRequestBody.Empty();
-            
-            var requestUrlParams = await urlData.ToUrlParamString();
-            var requestBodyParams = await bodyData.ToUrlParamString();
-            
-            if (!_checkCertificate)
-            {
-                ServicePointManager.ServerCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
-            }
-            
-            using (var client = new HttpClient())
-            {
-                var nonce = GetNonce();
-                
-                var httpRequestMessage = new HttpRequestMessage
-                {
-                    Method = requestMethod,
-                    RequestUri = new Uri(_apiPath + endpoint + "?" + requestUrlParams),
-                    Headers = { 
-                        { "APIKey", _apiPublicKey },
-                        { "Nonce", nonce },
-                        { "Authent", SignMessage(endpoint, nonce, requestUrlParams + requestBodyParams) }
-                    },
-                    Content = new StringContent(JsonConvert.SerializeObject(bodyData))
-                };
-
-                var response = await client.SendAsync(httpRequestMessage);
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw new Exception($"Request to CryptoFacilities resulted in {response.StatusCode.ToString()}");
-                }
-
-                var resultString = await response.Content.ReadAsStringAsync();
-
-                var result = resultString.DeserializeJson<T>();
-            
-                CheckForError(result);
-
-                return result;
-            }
-        }
-
-        private static void CheckForError(BaseResponse data)
-        {
-            if (data.Result == "success")
-                return;
-            
-            switch (data.Error)
-            {
-                case "apiLimitExceeded" : throw new ApiLimitExceededException();
-                case "invalidAccount": throw new InvalidAccountException();
-                case "invalidAmount" : throw new InvalidAmountException();
-                case "insufficientFunds": throw new InsufficientFundsException();
-                case "nonceBelowThreshold" : throw new NonceBelowThresholdException();
-                case "nonceDuplicate" : throw new NonceDuplicateException();
-                default: throw new СryptoFacilitiesException($"Unknown error: {data.Error}");
-            }
-        }
-
-
-        #region public endpoints
+        
+        #region Public Endpoints
         
         public async Task<Instrument[]> GetInstrumentsAsync()
         {
@@ -151,14 +86,7 @@ namespace Lykke.СryptoFacilities
         }
         #endregion
 
-        #region private endpoints
-
-        public async Task<AccountsInfo> GetAccountsInfoAsync()
-        {
-            var resp = await MakeRequest<GetAccountInfoResponse>(HttpMethod.Get, "/api/v3/accounts");
-
-            return resp.Accounts;
-        }
+        #region Private Endpoints
 
         public async Task CreateTransferAsync(string fromAccount, string toAccount, string unit, decimal amount)
         {
@@ -172,15 +100,22 @@ namespace Lykke.СryptoFacilities
 
             var resp = await MakeRequest<CreateTransferResponse>(HttpMethod.Post, "/api/v3/transfer", request);
         }
+
+        public async Task<AccountsInfo> GetAccountsInfoAsync()
+        {
+            var resp = await MakeRequest<GetAccountInfoResponse>(HttpMethod.Get, "/api/v3/accounts");
+
+            return resp.Accounts;
+        }
         
-        public async Task<CreatedOrder> CreateOrderAsync(string id, OrderType type, string symbol, Side side, long size, decimal limitPrice, decimal? stopPrice = default(decimal?))
+        public async Task<CreatedOrder> CreateOrderAsync(string clientOrderId, OrderType type, string symbol, Side side, long size, decimal limitPrice, decimal? stopPrice = default(decimal?))
         {
             if(type == OrderType.StopOrder && !stopPrice.HasValue)
                 throw new ArgumentNullException(nameof(stopPrice));
 
             var request = new CreateOrderRequestUrl
             {
-                ClientOrderId = id,
+                ClientOrderId = clientOrderId,
                 Type = type,
                 Symbol = symbol,
                 Side = side,
@@ -194,7 +129,6 @@ namespace Lykke.СryptoFacilities
             return resp.CreatedOrder;
         }
 
-        // Cancels an order
         public async Task<CancelOrderResult> CancelOrderAsync(string orderId, string clientOrderId)
         {
             var request = new CancelOrderRequestUrl
@@ -207,8 +141,7 @@ namespace Lykke.СryptoFacilities
 
             return resp.CancellationResult;
         }
-
-        // Cancels all orders
+        
         public async Task<CancelAllOrdersResult> CancelAllOrdersAsync(string symbol = null)
         {
             var request = new CancelAllOrdersRequestUrl
@@ -220,16 +153,40 @@ namespace Lykke.СryptoFacilities
 
             return resp.CancellationResult;
         }
+        
+        public async Task<CancelAllOrdersAfterStatus> CancelAllOrdersAfterAsync(long timeout)
+        {
+            var request = new CancelAllOrdersAfterRequestUrl
+            {
+                Timeout = timeout
+            };
+            
+            var resp = await MakeRequest<CancelAllOrdersAfterResponse>(HttpMethod.Post, "/api/v3/cancelallordersafter", request);
 
-        // This endpoint returns information on all open orders for all Futures contracts.
+            return resp.Status;
+        }
+
+        public async Task<BaseResponse> BatchOrdersAsync(BatchOrderRequest[] batchOrders)
+        {
+            throw new NotImplementedException(); // currently not supposed to be used because of unusual responses from CF
+            
+            var request = new BatchOrderRequestBody
+            {
+                Json = "{" + "\"batchOrder\":" + batchOrders.ToJson(true) + "}"
+            };
+            
+            var resp = await MakeRequest<BaseResponse>(HttpMethod.Post, "/api/v3/batchorder", null, request);
+
+            return resp;
+        }
+        
         public async Task<OpenOrder[]> GetOpenOrdersAsync()
         {
             var resp = await MakeRequest<GetOpenOrdersResponse>(HttpMethod.Get, "/api/v3/openorders");
 
             return resp.Orders;
         }
-
-        // This endpoint returns information on filled orders for all futures contracts.
+        
         public async Task<OrderFill[]> GetOrderFillsAsync(DateTime? lastFillTime = default(DateTime?))
         {
             var request = new GetOrderFillsRequestUrl
@@ -242,25 +199,24 @@ namespace Lykke.СryptoFacilities
             return resp.OrderFills;
         }
 
-        // This endpoint returns the size and average entry price of all open positions in Futures contracts. This includes Futures contracts that have matured but have not yet been settled.
         public async Task<OpenPosition[]> GetOpenPositionsAsync()
         {
             var resp = await MakeRequest<OpenPositionsResponse>(HttpMethod.Get, "/api/v3/openpositions");
 
             return resp.OpenPositions;
         }
-
-        // This endpoint provides the platform's notifications.
+        
         public async Task<Notification[]> GetNotificationsAsync()
         {
             var resp = await MakeRequest<NotificationsResponse>(HttpMethod.Get, "/api/v3/notifications");
 
             return resp.Notifications;
         }
-
-        // This endpoint returns information on digital asset deposits and withdrawals to and from a CryptoFacilities account.
+        
         public async Task<Transfer[]> GetTransfersAsync(DateTime? lastTransferTime = default(DateTime?))
         {
+            throw new NotImplementedException(); // the data from server isn't correct, new transfers don't appear
+            
             var request = new GetTransfersRequestUrl
             {
                 LastTransferTime = lastTransferTime
@@ -272,6 +228,80 @@ namespace Lykke.СryptoFacilities
         }
 
         #endregion
+
+        #region Utils        
+       
+        private async Task<T> MakeRequest<T>(HttpMethod requestMethod, string endpoint, BaseRequestUrl urlData = default(BaseRequestUrl), BaseRequestBody bodyData = default(BaseRequestBody)) where T : BaseResponse
+        {
+            if (urlData == default(BaseRequestUrl))
+                urlData = BaseRequestUrl.Empty();
+            
+            if(bodyData == default(BaseRequestBody))
+                bodyData = BaseRequestBody.Empty();
+            
+            var requestUrlParams = await urlData.ToUrlParamString();
+            var requestBodyParams = await bodyData.ToUrlParamString();
+            
+            if (!_checkCertificate)
+            {
+                ServicePointManager.ServerCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
+            }
+            
+            using (var client = new HttpClient())
+            {
+                var nonce = GetNonce();
+                
+                var httpRequestMessage = new HttpRequestMessage
+                {
+                    Method = requestMethod,
+                    RequestUri = new Uri(_apiPath + endpoint + (!string.IsNullOrWhiteSpace(requestUrlParams) ? ("?" + requestUrlParams) : string.Empty)),
+                    Headers = { 
+                        { "APIKey", _apiPublicKey },
+                        { "Nonce", nonce },
+                        { "Authent", SignMessage(endpoint, nonce, requestUrlParams + requestBodyParams) }
+                    },
+                    Content = new StringContent(JsonConvert.SerializeObject(bodyData))
+                };
+
+                var response = await client.SendAsync(httpRequestMessage);
+                
+                var resultString = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    _log.Error(nameof(MakeRequest), null, "Error during request.", new
+                    {
+                        Response = response,
+                        Text = resultString
+                    });
+                    
+                    throw new Exception($"Request to CryptoFacilities resulted in {response.StatusCode.ToString()}");
+                }
+
+                var result = resultString.DeserializeJson<T>();
+            
+                CheckForError(result);
+
+                return result;
+            }
+        }
+
+        private static void CheckForError(BaseResponse data)
+        {
+            if (data.Result == "success")
+                return;
+            
+            switch (data.Error)
+            {
+                case "apiLimitExceeded" : throw new ApiLimitExceededException();
+                case "invalidAccount": throw new InvalidAccountException();
+                case "invalidAmount" : throw new InvalidAmountException();
+                case "insufficientFunds": throw new InsufficientFundsException();
+                case "nonceBelowThreshold" : throw new NonceBelowThresholdException();
+                case "nonceDuplicate" : throw new NonceDuplicateException();
+                default: throw new СryptoFacilitiesException($"Unknown error: {data.Error}");
+            }
+        }
         
         private string SignMessage(string endpoint, string nonce, string postData)
         {
@@ -299,6 +329,8 @@ namespace Lykke.СryptoFacilities
             var timestamp = (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds);
             return timestamp + _nonce.ToString("D4");
         }
+        
+        #endregion
     }
     
     internal static class RestHelper

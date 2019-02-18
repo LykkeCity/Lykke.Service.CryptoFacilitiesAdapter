@@ -8,10 +8,13 @@ namespace Lykke.СryptoFacilities.Models.Common
     public enum OrderType
     {
         [JsonProperty("lmt")]
+        [EnumMember(Value = "lmt")]
         LimitOrder,
-        [JsonProperty("post")] 
+        [JsonProperty("post")]
+        [EnumMember(Value = "post")]
         PostOnly,
-        [JsonProperty("stp")] 
+        [JsonProperty("stp")]
+        [EnumMember(Value = "stp")]
         StopOrder
     }
 }

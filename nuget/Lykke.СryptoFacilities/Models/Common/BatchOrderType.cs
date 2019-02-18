@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -5,13 +6,11 @@ using Newtonsoft.Json.Converters;
 namespace Lykke.СryptoFacilities.Models.Common
 {
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum Side
+    public enum BatchOrderType
     {
-        [JsonProperty("buy")]
-        [EnumMember(Value = "buy")]
-        Buy,
-        [JsonProperty("sell")]
-        [EnumMember(Value = "sell")]
-        Sell
+        [EnumMember(Value = "send")]
+        Create,
+        [EnumMember(Value = "cancel")]
+        Cancel
     }
 }

@@ -6,10 +6,16 @@ namespace Lykke.СryptoFacilities.Models.Response
 {
     public class CancelOrderResponse : BaseResponse
     {
+        /// <summary>
+        /// An object containing information on the cancellation request.
+        /// </summary>
         [JsonProperty("cancelStatus")]
         public CancelOrderResult CancellationResult { set; get; }
     }
 
+    /// <summary>
+    /// An object containing information on the cancellation request.
+    /// </summary>
     public class CancelOrderResult
     {
         /// <summary>

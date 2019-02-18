@@ -6,9 +6,6 @@ namespace Lykke.СryptoFacilities.Models.Request
 {
     public class CreateOrderRequestUrl : BaseRequestUrl
     {
-        [JsonProperty("cliOrdId")]
-        public string ClientOrderId { set; get; }
-        
         [JsonProperty("orderType")]
         public OrderType Type { set; get; }
         
@@ -26,5 +23,8 @@ namespace Lykke.СryptoFacilities.Models.Request
 
         [JsonProperty("stopPrice")]
         public decimal? StopPrice { set; get; }
+        
+        [JsonProperty("cliOrdId")]
+        public string ClientOrderId { set; get; }
     }
 }
