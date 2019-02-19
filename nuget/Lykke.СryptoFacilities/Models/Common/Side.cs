@@ -7,6 +7,7 @@ namespace Lykke.СryptoFacilities.Models.Common
     [JsonConverter(typeof(StringEnumConverter))]
     public enum Side
     {
+        None,
         [JsonProperty("buy")]
         [EnumMember(Value = "buy")]
         Buy,

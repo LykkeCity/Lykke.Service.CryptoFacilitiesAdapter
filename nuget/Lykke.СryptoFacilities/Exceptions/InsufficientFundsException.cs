@@ -3,6 +3,9 @@ using System.Runtime.Serialization;
 
 namespace Lykke.СryptoFacilities.Exceptions
 {
+    /// <summary>
+    /// Insufficient Funds
+    /// </summary>
     public class InsufficientFundsException : СryptoFacilitiesException
     {
         public InsufficientFundsException()

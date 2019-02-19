@@ -3,6 +3,9 @@ using System.Runtime.Serialization;
 
 namespace Lykke.СryptoFacilities.Exceptions
 {
+    /// <summary>
+    /// Generic Exception
+    /// </summary>
     public class СryptoFacilitiesException : Exception
     {
         public СryptoFacilitiesException()

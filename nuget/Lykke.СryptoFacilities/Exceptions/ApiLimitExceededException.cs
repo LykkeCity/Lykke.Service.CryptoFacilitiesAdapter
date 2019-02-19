@@ -3,6 +3,9 @@ using System.Runtime.Serialization;
 
 namespace Lykke.СryptoFacilities.Exceptions
 {
+    /// <summary>
+    /// Api Limit Exceeded
+    /// </summary>
     public class ApiLimitExceededException : СryptoFacilitiesException
     {
         public ApiLimitExceededException()

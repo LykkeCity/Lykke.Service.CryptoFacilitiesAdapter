@@ -2,6 +2,9 @@ using Newtonsoft.Json;
 
 namespace Lykke.СryptoFacilities.Models.Request
 {
+    /// <summary>
+    /// Describes orderbook request.
+    /// </summary>
     public class OrderBookRequestUrl : BaseRequestUrl
     {
         /// <summary>

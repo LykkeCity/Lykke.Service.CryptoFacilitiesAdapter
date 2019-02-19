@@ -4,6 +4,9 @@ using Newtonsoft.Json.Converters;
 
 namespace Lykke.СryptoFacilities.Models.Common
 {
+    /// <summary>
+    /// Status of the attempted cancellation.
+    /// </summary>
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
     public class CancelOrderStatus
     {

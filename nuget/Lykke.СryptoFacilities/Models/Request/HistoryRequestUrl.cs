@@ -3,6 +3,9 @@ using Newtonsoft.Json;
 
 namespace Lykke.СryptoFacilities.Models.Request
 {
+    /// <summary>
+    /// Describes request for history list.
+    /// </summary>
     public class HistoryRequestUrl : BaseRequestUrl
     {
         /// <summary>

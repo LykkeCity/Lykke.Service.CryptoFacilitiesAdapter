@@ -41,7 +41,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lykke.СryptoFacilities", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7. Nuget", "7. Nuget", "{60149B45-4153-42EB-888D-A71EB77B525B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lykke.Service.CryptoFacilitiesAdapter.ConsoleTester", "..\tests\Lykke.Service.CryptoFacilitiesAdapter\Lykke.Service.CryptoFacilitiesAdapter.ConsoleTester\Lykke.Service.CryptoFacilitiesAdapter.ConsoleTester.csproj", "{E12F3020-7F20-4AF6-ADB4-102BFDCF8CD0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lykke.Service.CryptoFacilitiesAdapter.ConsoleTester", "tests\Lykke.Service.CryptoFacilitiesAdapter.ConsoleTester\Lykke.Service.CryptoFacilitiesAdapter.ConsoleTester.csproj", "{E12F3020-7F20-4AF6-ADB4-102BFDCF8CD0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

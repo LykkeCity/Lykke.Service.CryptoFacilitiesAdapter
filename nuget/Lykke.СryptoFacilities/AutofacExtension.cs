@@ -26,19 +26,19 @@ namespace Lykke.СryptoFacilities
 
             if (string.IsNullOrWhiteSpace(settings.ApiPrivateKey))
                 throw new ArgumentException("Value cannot be null or whitespace.",
-                    nameof(settings.ApiPath));
+                    nameof(settings.ApiPrivateKey));
 
             if (string.IsNullOrWhiteSpace(settings.ApiPublicKey))
                 throw new ArgumentException("Value cannot be null or whitespace.",
-                    nameof(settings.ApiPath));
+                    nameof(settings.ApiPublicKey));
             
-            builder.Register(ctx => new СryptoFacilitiesClient(
+            builder.Register(ctx => new СryptoFacilitiesApiV3(
                     settings.ApiPath,
                     settings.ApiPublicKey,
                     settings.ApiPrivateKey,
                     settings.CheckCertificate,
                     ctx.Resolve<ILogFactory>()))
-                .As<IСryptoFacilitiesClient>()
+                .As<IСryptoFacilitiesApiV3>()
                 .SingleInstance();
         }
     }

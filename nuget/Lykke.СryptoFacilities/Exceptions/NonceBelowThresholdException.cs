@@ -3,6 +3,9 @@ using System.Runtime.Serialization;
 
 namespace Lykke.СryptoFacilities.Exceptions
 {
+    /// <summary>
+    /// Nonce Below Threshold
+    /// </summary>
     public class NonceBelowThresholdException : СryptoFacilitiesException
     {
         public NonceBelowThresholdException()

@@ -1,11 +1,16 @@
 using System;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Lykke.СryptoFacilities.Models.Common;
 using Lykke.СryptoFacilities.Models.Response;
 
 namespace Lykke.СryptoFacilities
 {
-    public interface IСryptoFacilitiesClient
+    /// <summary>
+    /// Provides connection to CryptoFacilities API.
+    /// </summary>
+    [PublicAPI]
+    public interface IСryptoFacilitiesApiV3
     {
         /// <summary>
         /// This endpoint returns specifications for all currently listed Futures contracts and indices.

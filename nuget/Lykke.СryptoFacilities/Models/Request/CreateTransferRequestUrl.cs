@@ -2,6 +2,9 @@ using Newtonsoft.Json;
 
 namespace Lykke.СryptoFacilities.Models.Request
 {
+    /// <summary>
+    /// Describes transfer creation attempt.
+    /// </summary>
     public class CreateTransferRequestUrl : BaseRequestUrl
     {
         /// <summary>

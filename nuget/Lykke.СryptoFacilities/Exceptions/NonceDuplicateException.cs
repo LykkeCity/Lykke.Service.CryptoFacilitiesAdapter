@@ -3,6 +3,9 @@ using System.Runtime.Serialization;
 
 namespace Lykke.СryptoFacilities.Exceptions
 {
+    /// <summary>
+    /// Nonce Duplicate
+    /// </summary>
     public class NonceDuplicateException : СryptoFacilitiesException
     {
         public NonceDuplicateException()

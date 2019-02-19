@@ -5,11 +5,25 @@ using Newtonsoft.Json.Converters;
 
 namespace Lykke.СryptoFacilities.Models.Common
 {
+    /// <summary>
+    /// Defines batch action.
+    /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
     public enum BatchOrderType
     {
+        /// <summary>
+        /// Default empty value.
+        /// </summary>
+        [EnumMember(Value = "none")]
+        None,
+        /// <summary>
+        /// Used to request order creation.
+        /// </summary>
         [EnumMember(Value = "send")]
         Create,
+        /// <summary>
+        /// Used to request order cancellation.
+        /// </summary>
         [EnumMember(Value = "cancel")]
         Cancel
     }

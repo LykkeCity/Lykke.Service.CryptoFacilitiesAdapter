@@ -3,6 +3,9 @@ using System.Runtime.Serialization;
 
 namespace Lykke.СryptoFacilities.Exceptions
 {
+    /// <summary>
+    /// Invalid Amount
+    /// </summary>
     public class InvalidAmountException : СryptoFacilitiesException
     {
         public InvalidAmountException()

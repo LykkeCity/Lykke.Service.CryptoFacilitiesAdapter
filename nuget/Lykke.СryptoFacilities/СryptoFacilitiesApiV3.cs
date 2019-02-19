@@ -22,7 +22,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Lykke.СryptoFacilities
 {
-    public class СryptoFacilitiesClient : IСryptoFacilitiesClient
+    public class СryptoFacilitiesApiV3 : IСryptoFacilitiesApiV3
     {
         private readonly string _apiPath;
         private readonly string _apiPublicKey;
@@ -32,7 +32,7 @@ namespace Lykke.СryptoFacilities
 
         private readonly ILog _log;
 
-        public СryptoFacilitiesClient(string apiPath, string apiPublicKey, string apiPrivateKey, bool checkCertificate, ILogFactory logFactory)
+        public СryptoFacilitiesApiV3(string apiPath, string apiPublicKey, string apiPrivateKey, bool checkCertificate, ILogFactory logFactory)
         {
             _apiPath = apiPath;
             _apiPublicKey = apiPublicKey;

@@ -3,6 +3,9 @@ using System.Runtime.Serialization;
 
 namespace Lykke.СryptoFacilities.Exceptions
 {
+    /// <summary>
+    /// Invalid Account
+    /// </summary>
     public class InvalidAccountException : СryptoFacilitiesException
     {
         public InvalidAccountException()
