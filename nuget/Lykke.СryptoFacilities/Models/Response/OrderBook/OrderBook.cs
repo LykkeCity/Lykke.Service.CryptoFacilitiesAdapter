@@ -1,18 +1,8 @@
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 
-namespace Lykke.СryptoFacilities.Models.Response
+namespace Lykke.СryptoFacilities.Models.Response.OrderBook
 {
-    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
-    public class OrderBookResponse : BaseResponse
-    {
-        /// <summary>
-        /// An object containing lists with bid and ask prices and sizes.
-        /// </summary>
-        [JsonProperty("orderBook")]
-        public OrderBook OrderBook { set; get; }
-    }
-    
     /// <summary>
     /// An object containing lists with bid and ask prices and sizes.
     /// </summary>

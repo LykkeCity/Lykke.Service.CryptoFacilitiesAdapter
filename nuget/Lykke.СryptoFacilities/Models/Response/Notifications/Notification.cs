@@ -1,18 +1,11 @@
 using System;
-using Lykke.СryptoFacilities.Models.Common;
 using Newtonsoft.Json;
 
-namespace Lykke.СryptoFacilities.Models.Response
+namespace Lykke.СryptoFacilities.Models.Response.Notifications
 {
-    public class NotificationsResponse : BaseResponse
-    {
-        /// <summary>
-        /// A list containing the notifications.
-        /// </summary>
-        [JsonProperty("notifications")]
-        public Notification[] Notifications { set; get; }
-    }
-
+    /// <summary>
+    /// CryptoFacilities notification.
+    /// </summary>
     public class Notification
     {
         /// <summary>

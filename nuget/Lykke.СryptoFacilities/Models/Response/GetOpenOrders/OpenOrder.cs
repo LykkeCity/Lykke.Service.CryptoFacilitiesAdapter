@@ -2,17 +2,11 @@ using System;
 using Lykke.СryptoFacilities.Models.Common;
 using Newtonsoft.Json;
 
-namespace Lykke.СryptoFacilities.Models.Response
+namespace Lykke.СryptoFacilities.Models.Response.GetOpenOrders
 {
-    public class GetOpenOrdersResponse : BaseResponse
-    {
-        /// <summary>
-        /// A list containing structures with information on open orders. The list is sorted descending by ReceivedTime.
-        /// </summary>
-        [JsonProperty("openOrders")]
-        public OpenOrder[] Orders { set; get; }
-    }
-
+    /// <summary>
+    /// Open order.
+    /// </summary>
     public class OpenOrder
     {
         /// <summary>

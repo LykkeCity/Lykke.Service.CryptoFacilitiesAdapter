@@ -1,18 +1,11 @@
 using System;
-using Lykke.СryptoFacilities.Models.Common;
 using Newtonsoft.Json;
 
-namespace Lykke.СryptoFacilities.Models.Response
+namespace Lykke.СryptoFacilities.Models.Response.GetTransfers
 {
-    public class GetTransfersResponse : BaseResponse
-    {
-        /// <summary>
-        /// A list containing structures with information on the account’s transfer history. he list is sorted descending by ReceivedTime.
-        /// </summary>
-        [JsonProperty("transfers")]
-        public Transfer[] Transfers { set; get; }
-    }
-
+    /// <summary>
+    /// Information on the account’s transfer history.
+    /// </summary>
     public class Transfer
     {
         /// <summary>

@@ -2,17 +2,11 @@ using System;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 
-namespace Lykke.СryptoFacilities.Models.Response
+namespace Lykke.СryptoFacilities.Models.Response.Instruments
 {
-    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
-    public class InstrumentsResponse : BaseResponse
-    {
-        /// <summary>
-        /// An array containing objects for each available instrument. The list is in no particular order.
-        /// </summary>
-        public Instrument[] Instruments { set; get; }
-    }
-
+    /// <summary>
+    /// Instrument.
+    /// </summary>
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
     public class Instrument
     {
@@ -68,27 +62,5 @@ namespace Lykke.СryptoFacilities.Models.Response
         /// </summary>
         [JsonProperty("marginLevels")]
         public InstrumentMarginLevel[] MarginLevels { set; get; }
-    }
-
-    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
-    public class InstrumentMarginLevel
-    {
-        /// <summary>
-        /// For Futures: The lower limit of the number of contracts that this margin level applies.
-        /// </summary>
-        [JsonProperty("contracts")]
-        public long Contracts { set; get; }
-        
-        /// <summary>
-        /// For Futures: The initial margin requirement for this level.
-        /// </summary>
-        [JsonProperty("initialMargin")]
-        public decimal InitialMargin { set; get; }
-        
-        /// <summary>
-        /// For Futures: The maintenance margin requirement for this level.
-        /// </summary>
-        [JsonProperty("maintenanceMargin")]
-        public decimal MaintenanceMargin { set; get; }
     }
 }

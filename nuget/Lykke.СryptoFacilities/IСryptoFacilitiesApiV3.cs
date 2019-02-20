@@ -3,6 +3,20 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Lykke.СryptoFacilities.Models.Common;
 using Lykke.СryptoFacilities.Models.Response;
+using Lykke.СryptoFacilities.Models.Response.CancelAllOrders;
+using Lykke.СryptoFacilities.Models.Response.CancelAllOrdersAfter;
+using Lykke.СryptoFacilities.Models.Response.CancelOrder;
+using Lykke.СryptoFacilities.Models.Response.CreateOrder;
+using Lykke.СryptoFacilities.Models.Response.GetAccountInfo;
+using Lykke.СryptoFacilities.Models.Response.GetOpenOrders;
+using Lykke.СryptoFacilities.Models.Response.GetOrderFills;
+using Lykke.СryptoFacilities.Models.Response.GetTransfers;
+using Lykke.СryptoFacilities.Models.Response.History;
+using Lykke.СryptoFacilities.Models.Response.Instruments;
+using Lykke.СryptoFacilities.Models.Response.Notifications;
+using Lykke.СryptoFacilities.Models.Response.OpenPositions;
+using Lykke.СryptoFacilities.Models.Response.OrderBook;
+using Lykke.СryptoFacilities.Models.Response.Ticker;
 
 namespace Lykke.СryptoFacilities
 {

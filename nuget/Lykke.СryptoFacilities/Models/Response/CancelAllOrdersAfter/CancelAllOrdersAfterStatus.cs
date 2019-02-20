@@ -1,19 +1,8 @@
 using System;
-using JetBrains.Annotations;
 using Newtonsoft.Json;
 
-namespace Lykke.СryptoFacilities.Models.Response
+namespace Lykke.СryptoFacilities.Models.Response.CancelAllOrdersAfter
 {
-    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
-    public class CancelAllOrdersAfterResponse : BaseResponse
-    {
-        /// <summary>
-        /// The status of the switch.
-        /// </summary>
-        [JsonProperty("status")]
-        public CancelAllOrdersAfterStatus Status { set; get; }
-    }
-
     /// <summary>
     /// Describes the result of setting timeout.
     /// </summary>

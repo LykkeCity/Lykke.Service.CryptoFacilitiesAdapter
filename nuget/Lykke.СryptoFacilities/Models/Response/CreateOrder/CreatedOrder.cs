@@ -1,18 +1,8 @@
 using System;
-using Lykke.СryptoFacilities.Models.Common;
 using Newtonsoft.Json;
 
-namespace Lykke.СryptoFacilities.Models.Response
+namespace Lykke.СryptoFacilities.Models.Response.CreateOrder
 {
-    public class CreateOrderResponse : BaseResponse
-    {
-        /// <summary>
-        /// A structure containing information on the send order request.
-        /// </summary>
-        [JsonProperty("sendStatus")]
-        public CreatedOrder CreatedOrder { set; get; }
-    }
-
     /// <summary>
     /// A structure containing information on the send order request.
     /// </summary>

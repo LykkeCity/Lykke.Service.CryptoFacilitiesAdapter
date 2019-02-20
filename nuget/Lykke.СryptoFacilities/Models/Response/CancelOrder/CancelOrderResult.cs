@@ -1,18 +1,8 @@
 using System;
-using Lykke.СryptoFacilities.Models.Common;
 using Newtonsoft.Json;
 
-namespace Lykke.СryptoFacilities.Models.Response
+namespace Lykke.СryptoFacilities.Models.Response.CancelOrder
 {
-    public class CancelOrderResponse : BaseResponse
-    {
-        /// <summary>
-        /// An object containing information on the cancellation request.
-        /// </summary>
-        [JsonProperty("cancelStatus")]
-        public CancelOrderResult CancellationResult { set; get; }
-    }
-
     /// <summary>
     /// An object containing information on the cancellation request.
     /// </summary>

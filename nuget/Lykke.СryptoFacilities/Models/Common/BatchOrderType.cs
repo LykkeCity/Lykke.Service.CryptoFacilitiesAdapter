@@ -15,16 +15,19 @@ namespace Lykke.СryptoFacilities.Models.Common
         /// Default empty value.
         /// </summary>
         [EnumMember(Value = "none")]
+        [JsonProperty("none")]
         None,
         /// <summary>
         /// Used to request order creation.
         /// </summary>
         [EnumMember(Value = "send")]
+        [JsonProperty("send")]
         Create,
         /// <summary>
         /// Used to request order cancellation.
         /// </summary>
         [EnumMember(Value = "cancel")]
+        [JsonProperty("cancel")]
         Cancel
     }
 }

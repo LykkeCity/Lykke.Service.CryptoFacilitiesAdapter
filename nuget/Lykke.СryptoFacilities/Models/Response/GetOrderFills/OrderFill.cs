@@ -2,17 +2,11 @@ using System;
 using Lykke.СryptoFacilities.Models.Common;
 using Newtonsoft.Json;
 
-namespace Lykke.СryptoFacilities.Models.Response
+namespace Lykke.СryptoFacilities.Models.Response.GetOrderFills
 {
-    public class GetOrderFillsResponse : BaseResponse
-    {
-        /// <summary>
-        /// A list containing structures with information on filled orders. The list is sorted descending by FillTime.
-        /// </summary>
-        [JsonProperty("fills")]
-        public OrderFill[] OrderFills { set; get; }
-    }
-
+    /// <summary>
+    /// Order fill info.
+    /// </summary>
     public class OrderFill
     {
         /// <summary>

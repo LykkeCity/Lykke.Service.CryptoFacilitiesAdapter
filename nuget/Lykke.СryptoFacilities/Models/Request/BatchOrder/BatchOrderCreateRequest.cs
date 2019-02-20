@@ -1,47 +1,8 @@
 using Lykke.СryptoFacilities.Models.Common;
 using Newtonsoft.Json;
 
-namespace Lykke.СryptoFacilities.Models.Request
+namespace Lykke.СryptoFacilities.Models.Request.BatchOrder
 {
-    public class BatchOrderRequestBody : BaseRequestBody
-    {
-        /// <summary>
-        /// Contains the list BatchOrder
-        /// </summary>
-        [JsonProperty("json")]
-        public string Json { set; get; }
-    }
-
-    public abstract class BatchOrderRequest
-    {
-        /// <summary>
-        /// Request type.
-        /// </summary>
-        [JsonProperty("order")]
-        public virtual BatchOrderType RequestType { set; get; }
-        
-        /// <summary>
-        /// The order identity that is specified from the user. It must be globally unique.
-        /// </summary>
-        [JsonProperty("cliOrdId")]
-        public string ClientOrderId { set; get; }
-    }
-
-    public class BatchOrderCancelRequest : BatchOrderRequest
-    {
-        /// <summary>
-        /// Request type.
-        /// </summary>
-        [JsonProperty("order")]
-        public override BatchOrderType RequestType => BatchOrderType.Cancel;
-        
-        /// <summary>
-        /// The unique identifier of the order to be cancelled. Should be set only if RequestType is Cancel.
-        /// </summary>
-        [JsonProperty("order_id")]
-        public string OrderId { set; get; }
-    }
-
     public class BatchOrderCreateRequest : BatchOrderRequest
     {
         /// <summary>

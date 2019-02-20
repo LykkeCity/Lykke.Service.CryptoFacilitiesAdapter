@@ -1,19 +1,9 @@
 using System;
-using System.Collections.Generic;
 using Lykke.СryptoFacilities.Models.Common;
 using Newtonsoft.Json;
 
-namespace Lykke.СryptoFacilities.Models.Response
+namespace Lykke.СryptoFacilities.Models.Response.OpenPositions
 {
-    public class OpenPositionsResponse : BaseResponse
-    {
-        /// <summary>
-        /// A list containing structures with information on open positions. The list is sorted descending by FillTime.
-        /// </summary>
-        [JsonProperty("openPositions")]
-        public OpenPosition[] OpenPositions { get; set; }
-    }
-    
     /// <summary>
     /// Information on open position.
     /// </summary>

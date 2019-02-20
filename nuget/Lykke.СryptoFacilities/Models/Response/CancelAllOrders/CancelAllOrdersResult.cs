@@ -1,15 +1,8 @@
 using System;
-using Lykke.СryptoFacilities.Models.Common;
 using Newtonsoft.Json;
 
-namespace Lykke.СryptoFacilities.Models.Response
+namespace Lykke.СryptoFacilities.Models.Response.CancelAllOrders
 {
-    public class CancelAllOrdersResponse : BaseResponse
-    {
-        [JsonProperty("cancelStatus")]
-        public CancelAllOrdersResult CancellationResult { set; get; }
-    }
-
     public class CancelAllOrdersResult
     {
         /// <summary>
@@ -35,20 +28,5 @@ namespace Lykke.СryptoFacilities.Models.Response
         /// </summary>
         [JsonProperty("cancelledOrders")]
         public CancelledOrderItem[] CancelledOrders { set; get; }
-    }
-
-    public class CancelledOrderItem
-    {
-        /// <summary>
-        /// The cancelled order id.
-        /// </summary>
-        [JsonProperty("order_id")]
-        public string OrderId { set; get; }
-
-        /// <summary>
-        /// The client order id. Shown only if client specified one.
-        /// </summary>
-        [JsonProperty("cliOrdId")]
-        public string ClientOrderId { set; get; }
     }
 }
