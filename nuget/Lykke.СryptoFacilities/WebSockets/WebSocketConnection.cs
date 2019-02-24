@@ -91,42 +91,7 @@ namespace Lykke.СryptoFacilities.WebSockets
 
                     _lastMessageReceiveTime = DateTime.UtcNow;
 
-                    Task.Run(async () =>
-                        {
-                            while (true)
-                            {
-                                await Task.Delay(TimeSpan.FromSeconds(10));
-    
-                                if (DateTime.UtcNow - _lastMessageReceiveTime.Value > _timeout)
-                                {
-                                    _log.Warning("Didn't receive any messages for too long, will reconnect...");
-
-                                    if (_clientWebSocket != null && _clientWebSocket.State == WebSocketState.Open)
-                                    {
-                                        CleanSocket();
-                                        await NotifyClient();
-                                    }
-
-                                    try
-                                    {
-                                        await Start();
-
-                                        break;
-                                    }
-                                    catch (Exception e)
-                                    {
-                                        _log.Error("Error during reconnect attempt. Will retry in some time. Killing active connection.", e);
-                                    
-                                        CleanSocket();
-                                    }
-                                }
-    
-                                if (_cancellationTokenSource == null || _cancellationTokenSource.IsCancellationRequested)
-                                {
-                                    break;
-                                }
-                            }
-                        }, _cancellationTokenSource.Token)
+                    Task.Run(ConnectionCheck, _cancellationTokenSource.Token)
                         .ContinueWith(t =>
                         {
                             if (t.IsFaulted)
@@ -143,6 +108,43 @@ namespace Lykke.СryptoFacilities.WebSockets
             finally
             {
                 _semaphoreSlim.Release();
+            }
+        }
+
+        private async Task ConnectionCheck()
+        {
+            while (true)
+            {
+                await Task.Delay(TimeSpan.FromSeconds(10));
+    
+                if (DateTime.UtcNow - _lastMessageReceiveTime.Value > _timeout)
+                {
+                    _log.Warning("Didn't receive any messages for too long, will reconnect...");
+
+                    if (_clientWebSocket != null && _clientWebSocket.State == WebSocketState.Open)
+                    {
+                        CleanSocket();
+                        await NotifyClient();
+                    }
+
+                    try
+                    {
+                        await Start();
+
+                        break;
+                    }
+                    catch (Exception e)
+                    {
+                        _log.Error("Error during reconnect attempt. Will retry in some time. Killing active connection.", e);
+                                    
+                        CleanSocket();
+                    }
+                }
+    
+                if (_cancellationTokenSource == null || _cancellationTokenSource.IsCancellationRequested)
+                {
+                    break;
+                }
             }
         }
 

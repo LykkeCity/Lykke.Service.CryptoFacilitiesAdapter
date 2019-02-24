@@ -1,3 +1,4 @@
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace Lykke.СryptoFacilities.WebSockets.Messages
@@ -10,9 +11,9 @@ namespace Lykke.СryptoFacilities.WebSockets.Messages
         [JsonProperty("feed")]
         public string Feed { set; get; }
 
-        public string ProductId => _productIds.Length == 1 ? _productIds[0] : null;
+        public string ProductId => ProductIds.SingleOrDefault();
 
         [JsonProperty("product_ids")]
-        public string[] _productIds { set; private get; }
+        public string[] ProductIds { set; private get; }
     }
 }
