@@ -31,7 +31,7 @@ namespace Lykke.Service.СryptoFacilitiesAdapter
                 options.Logs = logs =>
                 {
                     logs.AzureTableName = "СryptoFacilitiesAdapterLog";
-                    logs.AzureTableConnectionStringResolver = settings => settings.СryptoFacilitiesAdapterService.Db.LogsConnString;
+                    logs.AzureTableConnectionStringResolver = settings => settings.СryptoFacilitiesAdapterService.Db.LogsConnectionString;
 
                     // TODO: You could add extended logging configuration here:
                     /* 

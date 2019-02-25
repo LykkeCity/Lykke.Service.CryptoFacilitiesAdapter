@@ -22,10 +22,5 @@ namespace Lykke.СryptoFacilities.Models.Response
         /// Contains error code if present.
         /// </summary>
         public string Error { get; set; }
-
-        public override string ToString()
-        {
-            return this.ToJson();
-        }
     }
 }

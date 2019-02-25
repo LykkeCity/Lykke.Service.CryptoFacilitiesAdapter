@@ -7,7 +7,7 @@ namespace Lykke.СryptoFacilities.Models.Response.Instruments
     /// <summary>
     /// Instrument.
     /// </summary>
-    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
+    [PublicAPI]
     public class Instrument
     {
         /// <summary>
