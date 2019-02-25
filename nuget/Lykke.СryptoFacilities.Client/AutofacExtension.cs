@@ -7,7 +7,6 @@ using Lykke.HttpClientGenerator;
 namespace Lykke.СryptoFacilities
 {
     [PublicAPI]
-    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
     public static class AutofacExtension
     {
         public static void RegisterCryptoFacilitiesClient(
