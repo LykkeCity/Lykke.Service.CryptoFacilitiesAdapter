@@ -25,9 +25,6 @@
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Lykke.Service.СryptoFacilitiesAdapter.AzureRepositories\Lykke.Service.СryptoFacilitiesAdapter.AzureRepositories.csproj" />
-    <ProjectReference Include="..\Lykke.Service.СryptoFacilitiesAdapter.Domain\Lykke.Service.СryptoFacilitiesAdapter.Domain.csproj" />
-    <ProjectReference Include="..\Lykke.Service.СryptoFacilitiesAdapter.DomainServices\Lykke.Service.СryptoFacilitiesAdapter.DomainServices.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
