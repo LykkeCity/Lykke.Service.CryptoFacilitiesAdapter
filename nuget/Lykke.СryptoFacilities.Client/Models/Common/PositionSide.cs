@@ -14,19 +14,16 @@ namespace Lykke.СryptoFacilities.Models.Common
         /// Default empty value.
         /// </summary>
         [JsonProperty("none")]
-        [EnumMember(Value = "none")]
         None,
         /// <summary>
         /// Long position.
         /// </summary>
         [JsonProperty("long")]
-        [EnumMember(Value = "long")]
         Long,
         /// <summary>
         /// Short position.
         /// </summary>
         [JsonProperty("short")]
-        [EnumMember(Value = "short")]
         Short
     }
 }

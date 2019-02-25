@@ -8,13 +8,10 @@ namespace Lykke.СryptoFacilities.Models.Common
     public enum Side
     {
         [JsonProperty("none")]
-        [EnumMember(Value = "none")]
         None,
         [JsonProperty("buy")]
-        [EnumMember(Value = "buy")]
         Buy,
         [JsonProperty("sell")]
-        [EnumMember(Value = "sell")]
         Sell
     }
 }
