@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Threading;
 using Common;
-using Lykke.СryptoFacilities;
-using Lykke.СryptoFacilities.Models.Common;
-using Lykke.СryptoFacilities.Models.Request;
+using Lykke.CryptoFacilities;
+using Lykke.CryptoFacilities.Models.Common;
+using Lykke.CryptoFacilities.Models.Request;
 
 namespace Lykke.Service.CryptoFacilitiesAdapter.ConsoleTester
 {
@@ -13,7 +13,7 @@ namespace Lykke.Service.CryptoFacilitiesAdapter.ConsoleTester
         static void Main(string[] args)
         {
             /*
-            var client = new СryptoFacilitiesClient(
+            var client = new CryptoFacilitiesClient(
                 "https://www.cryptofacilities.com/derivatives",
                 "",
                 "",
