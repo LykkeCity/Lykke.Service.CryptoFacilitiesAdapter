@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Version>1.0.1</Version>
+    <Authors>Lykke</Authors>
+    <Company>Lykke</Company>
+    <Product>Lykke.CryptoFacilities</Product>
+    <Description>Client for CryptoFacilities API</Description>
+    <PackageLicenseUrl>https://github.com/LykkeCity/Lykke.Service.CryptoFacilitiesAdapter/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/LykkeCity/Lykke.Service.CryptoFacilitiesAdapter</PackageProjectUrl>
+    <PackageIconUrl>https://avatars3.githubusercontent.com/u/14153330?v=3&amp;s=200</PackageIconUrl>
+    <RepositoryUrl>https://github.com/LykkeCity/Lykke.Service.CryptoFacilitiesAdapter.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Lykke</PackageTags>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Lykke.Common" Version="7.3.1" />
+    <PackageReference Include="Lykke.HttpClientGenerator" Version="2.2.0.0" />
+  </ItemGroup>
+
+</Project>
