@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Net.WebSockets;
 using System.Text;
@@ -48,6 +48,8 @@ namespace Lykke.CryptoFacilities.WebSockets
                     _log.Info("Connecting...");
 
                     _clientWebSocket = new ClientWebSocket();
+                    _clientWebSocket.Options.KeepAliveInterval = TimeSpan.FromSeconds(30);
+
                     _cancellationTokenSource = new CancellationTokenSource();
 
                     try
@@ -58,7 +60,7 @@ namespace Lykke.CryptoFacilities.WebSockets
                         if (_clientWebSocket.State != WebSocketState.Open)
                             throw new Exception(
                                 $"Invalid socket state after connect attempt: {_clientWebSocket.State}.");
-                        
+
                         Task.Run(async () =>
                             {
                                 if (_cancellationTokenSource == null || _cancellationTokenSource.IsCancellationRequested)
@@ -77,7 +79,7 @@ namespace Lykke.CryptoFacilities.WebSockets
                         _log.Error(e);
                         throw;
                     }
-                    
+
                     _log.Info("Connected.");
 
                     try
@@ -116,7 +118,7 @@ namespace Lykke.CryptoFacilities.WebSockets
             while (true)
             {
                 await Task.Delay(TimeSpan.FromSeconds(10));
-    
+
                 if (DateTime.UtcNow - _lastMessageReceiveTime.Value > _timeout)
                 {
                     _log.Warning("Didn't receive any messages for too long, will reconnect...");
@@ -140,7 +142,7 @@ namespace Lykke.CryptoFacilities.WebSockets
                         CleanSocket();
                     }
                 }
-    
+
                 if (_cancellationTokenSource == null || _cancellationTokenSource.IsCancellationRequested)
                 {
                     break;
@@ -185,7 +187,8 @@ namespace Lykke.CryptoFacilities.WebSockets
         {
             try
             {
-                var requestSegment = StringToArraySegment(JsonConvert.SerializeObject(request));
+                var jsonStr = JsonConvert.SerializeObject(request);
+                var requestSegment = StringToArraySegment(jsonStr);
 
                 await _clientWebSocket.SendAsync(requestSegment, WebSocketMessageType.Text, true, ct);
             }
@@ -195,7 +198,7 @@ namespace Lykke.CryptoFacilities.WebSockets
                     "Something went wrong while sending a message to the web socket, see InternalException.", e);
             }
         }
-        
+
         private async Task HandleMessagesCycleAsync(CancellationToken ct)
         {
             while (_clientWebSocket?.State == WebSocketState.Open)
@@ -219,7 +222,7 @@ namespace Lykke.CryptoFacilities.WebSockets
                         if (!string.IsNullOrWhiteSpace(jsonMessage))
                         {
                             _lastMessageReceiveTime = DateTime.UtcNow;
-                            
+
                             await HandleNewMessageAsync(jsonMessage);
                         }
                     }
@@ -240,8 +243,7 @@ namespace Lykke.CryptoFacilities.WebSockets
         private static ArraySegment<byte> StringToArraySegment(string message)
         {
             var messageBytes = Encoding.UTF8.GetBytes(message);
-            var messageArraySegment = new ArraySegment<byte>(messageBytes);
-            return messageArraySegment;
+            return new ArraySegment<byte>(messageBytes);
         }
 
         private void CleanSocket()

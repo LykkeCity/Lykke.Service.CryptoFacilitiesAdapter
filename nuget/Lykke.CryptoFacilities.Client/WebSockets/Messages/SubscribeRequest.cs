@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Lykke.CryptoFacilities.WebSockets.Messages
@@ -18,7 +18,7 @@ namespace Lykke.CryptoFacilities.WebSockets.Messages
             OriginalChallenge = originalChallenge;
             SignedChallenge = signedChallenge;
         }
-        
+
         [JsonProperty("event")]
         public string Event { get; private set; } = "subscribe";
 
@@ -27,7 +27,7 @@ namespace Lykke.CryptoFacilities.WebSockets.Messages
 
         [JsonProperty("product_ids", NullValueHandling = NullValueHandling.Ignore)]
         public IEnumerable<string> Products { get; private set; }
-        
+
         [JsonProperty("api_key", NullValueHandling = NullValueHandling.Ignore)]
         public string ApiKey { get; private set; }
 

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,12 +16,11 @@ namespace Lykke.CryptoFacilities.WebSockets
         private readonly string _apiPublicKey;
         private readonly Func<TSnapshot, Task> _snapshotHandlerAction;
         private readonly Func<TPayload, Task> _payloadHandlerAction;
- 
+        private readonly ILog _log;
+
         private bool _signedMessage;
         private bool _subscribed;
 
-        private ILog _log;
-        
         public PrivateCryptoFacilitiesConnection(
             string baseUri,
             string feed,
@@ -112,18 +111,18 @@ namespace Lykke.CryptoFacilities.WebSockets
         {
             if (!_subscribed)
             {
-                _log.Critical(jToken.ToString());
+                _log.Critical(message: jToken.ToString());
             }
             else
             {
-                _log.Error(jToken.ToString());
+                _log.Error(message: jToken.ToString());
             }
         }
 
         private void HandleSubscribeMessage(JToken jToken)
         {
             _subscribed = true;
-            
+
             _log.Info("Subscribed to feed.");
         }
 
@@ -134,10 +133,12 @@ namespace Lykke.CryptoFacilities.WebSockets
                 _log.Warning("Message signing request received but no need.");
                 return;
             }
-            
+
             var result = jToken.ToObject<ChallengeMessage>();
 
-            await SendMessageAsync(new SubscribeRequest(_feed, _apiPublicKey, result.Message, SignChallenge(result.Message)));
+            var request = new SubscribeRequest(_feed, _apiPublicKey, result.Message, SignChallenge(result.Message));
+
+            await SendMessageAsync(request);
         }
 
         protected override Task Connected()

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,11 +16,9 @@ namespace Lykke.CryptoFacilities.WebSockets
         private readonly Func<TSnapshot, Task> _snapshotHandlerAction;
         private readonly Func<TPayload, Task> _payloadHandlerAction;
         private readonly IEnumerable<string> _products;
+        private readonly ILog _log;
+        private readonly ConcurrentDictionary<string, bool> _productsSubscribed;
 
-        private ConcurrentDictionary<string, bool> _productsSubscribed;
-
-        private ILog _log;
-        
         public PublicCryptoFacilitiesConnection(
             string baseUri,
             string feed,

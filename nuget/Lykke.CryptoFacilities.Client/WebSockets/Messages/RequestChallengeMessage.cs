@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Lykke.CryptoFacilities.WebSockets.Messages
 {
@@ -8,10 +8,10 @@ namespace Lykke.CryptoFacilities.WebSockets.Messages
         {
             ApiKey = apiKey;
         }
-        
+
         [JsonProperty("event")]
         public string Event { get; private set; } = "challenge";
-        
+
         [JsonProperty("api_key")]
         public string ApiKey { set; get; }
     }
