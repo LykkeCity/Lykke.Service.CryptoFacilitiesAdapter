@@ -1,4 +1,5 @@
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
+using Lykke.SettingsReader.Attributes;
 
 namespace Lykke.CryptoFacilities
 {
@@ -12,20 +13,21 @@ namespace Lykke.CryptoFacilities
         /// Path to API
         /// </summary>
         public string ApiPath { set; get; }
-        
+
         /// <summary>
         /// Api Private Key
         /// </summary>
         public string ApiPrivateKey { set; get; }
-        
+
         /// <summary>
         /// Api Public Key
         /// </summary>
         public string ApiPublicKey { set; get; }
-        
+
         /// <summary>
         /// Whether client should check certificate.
         /// </summary>
+        [Optional]
         public bool CheckCertificate { set; get; }
     }
 }
