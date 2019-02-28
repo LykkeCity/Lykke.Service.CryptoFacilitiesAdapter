@@ -13,16 +13,13 @@ namespace Lykke.CryptoFacilities.WebSockets
 {
     public abstract class WebSocketConnection : IDisposable
     {
-        private ClientWebSocket _clientWebSocket;
-
         private readonly string _baseUri;
         private readonly TimeSpan _timeout;
         private readonly ILog _log;
-
-        private DateTime? _lastMessageReceiveTime;
-
         private readonly SemaphoreSlim _semaphoreSlim;
 
+        private DateTime? _lastMessageReceiveTime;
+        private ClientWebSocket _clientWebSocket;
         private CancellationTokenSource _cancellationTokenSource;
 
         public WebSocketConnection(
@@ -125,6 +122,7 @@ namespace Lykke.CryptoFacilities.WebSockets
 
                     if (_clientWebSocket != null && _clientWebSocket.State == WebSocketState.Open)
                     {
+                        CleanTokenResetTimer();
                         CleanSocket();
                         await NotifyClient();
                     }
@@ -138,29 +136,26 @@ namespace Lykke.CryptoFacilities.WebSockets
                     catch (Exception e)
                     {
                         _log.Error("Error during reconnect attempt. Will retry in some time. Killing active connection.", e);
-                                    
                         CleanSocket();
                     }
                 }
 
                 if (_cancellationTokenSource == null || _cancellationTokenSource.IsCancellationRequested)
-                {
                     break;
-                }
             }
         }
 
         public async Task Stop()
         {
             await _semaphoreSlim.WaitAsync();
-            
+
             try
             {
                 _log.Info("Stopping...");
 
-                CleanSocket();
                 CleanTokenResetTimer();
-                
+                CleanSocket();
+
                 _log.Info("Stopped.");
 
                 await NotifyClient();
@@ -228,7 +223,8 @@ namespace Lykke.CryptoFacilities.WebSockets
                     }
                     catch (Exception e)
                     {
-                        _log.Warning("Error occured during message handling.", e);
+                        if (e.GetType() != typeof(TaskCanceledException))
+                            _log.Warning("Error occured during message handling.", e);
                     }
                 }
             }
@@ -264,8 +260,8 @@ namespace Lykke.CryptoFacilities.WebSockets
 
         public void Dispose()
         {
-            CleanSocket();
             CleanTokenResetTimer();
+            CleanSocket();
         }
     }
 }
