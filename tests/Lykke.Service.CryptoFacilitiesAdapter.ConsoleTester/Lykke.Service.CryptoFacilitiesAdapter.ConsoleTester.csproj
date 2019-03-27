@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Lykke.Service.CryptoFacilitiesAdapter\nuget\Lykke.СryptoFacilities.Client\Lykke.СryptoFacilities.Client.csproj" />
+      <ProjectReference Include="..\..\..\Lykke.Service.CryptoFacilitiesAdapter\nuget\Lykke.CryptoFacilities.Client\Lykke.CryptoFacilities.Client.csproj" />
     </ItemGroup>
 
 </Project>

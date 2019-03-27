@@ -1,7 +1,7 @@
-СryptoFacilitiesAdapterService:
+CryptoFacilitiesAdapterService:
     Db:
         LogsConnectionString:
-            settings-key: СryptoFacilitiesAdapterService-LogsConnectionString
+            settings-key: CryptoFacilitiesAdapterService-LogsConnectionString
             types:
               - AzureTableStorage
 SlackNotifications:
